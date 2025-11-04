@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Convite de Aniversário 🍾</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
     <!-- 🎉 Favicon -->
     <link
@@ -72,10 +73,20 @@
         </p>
       </div>
 
+      <!-- Botão de mapa -->
+      <a
+        href="https://www.google.com/maps?q=Lounge+Beer+Garden,+Av.+Central,+123+-+Centro"
+        target="_blank"
+        class="inline-block bg-white/20 border border-yellow-100/40 text-yellow-200 px-5 py-2 rounded-full mb-5 font-medium hover:bg-white/30 transition"
+      >
+        📍 Ver no mapa
+      </a>
+
       <p class="text-yellow-100 italic mb-6">
         Vista seu melhor sorriso e venha brindar comigo essa nova idade! 🍻
       </p>
 
+      <!-- Botão WhatsApp -->
       <a
         href="https://wa.me/5598985946803?text=Oi%20Andreia!%20Confirmo%20minha%20presen%C3%A7a%20na%20sua%20festa%20de%2039%20anos!%20🥳"
         target="_blank"
@@ -87,5 +98,34 @@
       <!-- brilho suave decorativo -->
       <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-yellow-200/10 to-transparent pointer-events-none"></div>
     </div>
+
+    <!-- 🎇 Script de explosão de confetes -->
+    <script>
+      window.onload = () => {
+        const duration = 2 * 1000; // duração de 2 segundos
+        const end = Date.now() + duration;
+
+        (function frame() {
+          confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 60,
+            origin: { x: 0 },
+            colors: ["#FFD700", "#FFF8DC", "#FFEC8B"],
+          });
+          confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 60,
+            origin: { x: 1 },
+            colors: ["#FFD700", "#FFF8DC", "#FFEC8B"],
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      };
+    </script>
   </body>
 </html>
