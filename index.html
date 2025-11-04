@@ -33,12 +33,14 @@
     class="flex items-center justify-center min-h-screen bg-cover bg-center bg-fixed"
     style="background-image: url('https://png.pngtree.com/background/20220723/original/pngtree-beer-party-black-and-white-film-material-life-art-taste-picture-image_1727552.jpg');"
   >
-    <!-- Container com efeito vidro -->
+    <!-- Container principal -->
     <div
       class="relative max-w-md text-center p-8 rounded-3xl shadow-2xl border border-yellow-100/40 bg-white/10 backdrop-blur-xl"
     >
+      <!-- Imagem clicável -->
       <div
-        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-yellow-400 shadow-lg"
+        class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-yellow-400 shadow-lg cursor-pointer transition-transform hover:scale-105"
+        id="profileImage"
       >
         <img
           src="https://i.postimg.cc/fTG19mZP/andreia.jpg"
@@ -68,8 +70,7 @@
         <p><strong>📅 Data:</strong> 23 de Novembro de 2025</p>
         <p><strong>🕒 Horário:</strong> A partir das 19h</p>
         <p>
-          <strong>📍 Local:</strong> Lounge Beer Garden — Av. Central, 123 -
-          Centro
+          <strong>📍 Local:</strong> Lounge Beer Garden — Av. Central, 123 - Centro
         </p>
       </div>
 
@@ -99,12 +100,49 @@
       <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-yellow-200/10 to-transparent pointer-events-none"></div>
     </div>
 
-    <!-- 🎇 Script de explosão de confetes -->
+    <!-- 🎇 Modal de imagem -->
+    <div
+      id="imageModal"
+      class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 transition-opacity"
+    >
+      <div class="relative max-w-3xl w-full px-4">
+        <img
+          src="https://i.postimg.cc/fTG19mZP/andreia.jpg"
+          alt="Andreia"
+          class="rounded-2xl w-full h-auto shadow-2xl border-4 border-yellow-400 animate-fadeIn"
+        />
+        <button
+          id="closeModal"
+          class="absolute top-2 right-4 text-white text-4xl font-bold hover:text-yellow-400 transition"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- ✨ Animação personalizada -->
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.3s ease-out;
+      }
+    </style>
+
+    <!-- 🎇 Script de confete e modal -->
     <script>
       window.onload = () => {
-        const duration = 2 * 1000; // duração de 2 segundos
+        // 🎉 Confete
+        const duration = 2000;
         const end = Date.now() + duration;
-
         (function frame() {
           confetti({
             particleCount: 5,
@@ -120,11 +158,30 @@
             origin: { x: 1 },
             colors: ["#FFD700", "#FFF8DC", "#FFEC8B"],
           });
-
-          if (Date.now() < end) {
-            requestAnimationFrame(frame);
-          }
+          if (Date.now() < end) requestAnimationFrame(frame);
         })();
+
+        // 📸 Modal da imagem
+        const modal = document.getElementById("imageModal");
+        const profile = document.getElementById("profileImage");
+        const closeBtn = document.getElementById("closeModal");
+
+        profile.addEventListener("click", () => {
+          modal.classList.remove("hidden");
+          document.body.classList.add("overflow-hidden");
+        });
+
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+          document.body.classList.remove("overflow-hidden");
+        });
+
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
+          }
+        });
       };
     </script>
   </body>
